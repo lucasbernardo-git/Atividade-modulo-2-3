@@ -40,7 +40,7 @@ def menu():
 
 def sair_aplicacao():
     """
-    
+
     """
     print("\n")
     print("Temas que foram escolhidos:")
@@ -54,6 +54,16 @@ def sair_aplicacao():
     print("\nsaindo...")
     quit()
 
+def exibir_noticias():
+    """
+
+    """
+    for artigo in resposta_json["articles"][:numero_noticias]:
+            print("\n")
+            print(f'Título da notícia: {artigo["title"]}')
+            print(f'Fonte de notícia: {artigo["url"]}')
+            print(f'Autor da noícia: {artigo["author"]}')
+        
 #Listas com os históricos de temas e numeros de notícias pesquisados.
 
 historico_temas = []
@@ -102,12 +112,8 @@ while True:
         else:
             print("Ocorreu algum erro, tente novamente!")
             continue
-
-        for artigo in resposta_json["articles"][:numero_noticias]:
-            print("\n")
-            print(f'Título da noícia: {artigo["title"]}')
-            print(f'Fonte de notícia: {artigo["url"]}')
-            print(f'Autor da noícia: {artigo["author"]}')
+        
+        exibir_noticias()
         
         input("#>")
 
