@@ -27,18 +27,25 @@ def limpar_terminal():
     """
     os.system("cls")
 
-#Listas com os históricos de temas e numeros de notícias pesquisados.
-historico_temas = []
-historico_numero_noticias = []
+def menu():
+    """
 
-#Loop principal da aplicação
-while True:
+    """
     limpar_terminal()
     marcacao_menu()
     print("MENU NEWS API")
     print('\n- Digite "0" para sair')
     print('- Digite "1" para iniciar busca')
     marcacao_menu()
+#Listas com os históricos de temas e numeros de notícias pesquisados.
+
+historico_temas = []
+historico_numero_noticias = []
+
+#Loop principal da aplicação
+while True:
+    menu()
+
     escolha_menu = input("#>")
 
     if escolha_menu == "0":
