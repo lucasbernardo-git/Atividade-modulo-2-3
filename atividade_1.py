@@ -55,6 +55,7 @@ def sair_aplicacao():
     quit()
 
 def exibir_noticias():
+    global numero_noticias
     """
 
     """
@@ -63,9 +64,37 @@ def exibir_noticias():
             print(f'Título da notícia: {artigo["title"]}')
             print(f'Fonte de notícia: {artigo["url"]}')
             print(f'Autor da noícia: {artigo["author"]}')
-        
-#Listas com os históricos de temas e numeros de notícias pesquisados.
+    
+def inputs_noticia():
+    """
 
+    """
+    global params, numero_noticias
+
+    escolha_tema = input("Digite qual o tema das notícias que você deseja: ")
+    historico_temas.append(escolha_tema)
+
+    #Loop de verificação do numero de notícias
+    while True:
+        try:
+            numero_noticias = int(input("\nDigite o número de notícias que você deseja receber(Até 10 notícias): "))
+
+        except ValueError:
+            print("\nDigite apenas numero!")
+            continue
+
+        if numero_noticias >= 1 and numero_noticias <= 10:
+            historico_numero_noticias.append(numero_noticias)
+            params = {
+                    "q" : escolha_tema,
+                    "language" : "pt"}
+            break
+        else:
+            print("\nNumero de notícias incorreto, tente novamente!")
+            continue
+
+numero_noticias = 0
+#Listas com os históricos de temas e numeros de notícias pesquisados.
 historico_temas = []
 historico_numero_noticias = []
 
@@ -80,27 +109,7 @@ while True:
 
     if escolha_menu == "1":
 
-        escolha_tema = input("Digite qual o tema das notícias que você deseja: ")
-
-        #Loop de verificação do numero de notícias
-        while True:
-            try:
-                numero_noticias = int(input("\nDigite o número de notícias que você deseja receber(Até 10 notícias): "))
-            except ValueError:
-                print("\nDigite apenas numero!")
-                continue
-
-            if numero_noticias >= 1 and numero_noticias <= 10:
-                params = {
-                    "q" : escolha_tema,
-                    "language" : "pt"}
-                break
-            else:
-                print("\nNumero de notícias incorreto, tente novamente!")
-                continue
-
-        historico_temas.append(escolha_tema)
-        historico_numero_noticias.append(numero_noticias)
+        inputs_noticia()
 
         resposta = requests.get(url=url, headers=headers, params=params)
 
@@ -116,10 +125,3 @@ while True:
         exibir_noticias()
         
         input("#>")
-
-        
-
-
-        
-
-
