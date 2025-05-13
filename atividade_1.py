@@ -37,6 +37,23 @@ def menu():
     print('\n- Digite "0" para sair')
     print('- Digite "1" para iniciar busca')
     marcacao_menu()
+
+def sair_aplicacao():
+    """
+    
+    """
+    print("\n")
+    print("Temas que foram escolhidos:")
+
+    for temas in historico_temas:
+        print(f"- {temas}")
+
+    print("\n")
+    print(f"Numero de notícias chamadas: {sum(historico_numero_noticias)}")
+
+    print("\nsaindo...")
+    quit()
+
 #Listas com os históricos de temas e numeros de notícias pesquisados.
 
 historico_temas = []
@@ -49,17 +66,7 @@ while True:
     escolha_menu = input("#>")
 
     if escolha_menu == "0":
-        print("\n")
-        print("Temas que foram escolhidos:")
-
-        for temas in historico_temas:
-            print(f"- {temas}")
-
-        print("\n")
-        print(f"Numero de notícias chamadas: {sum(historico_numero_noticias)}")
-
-        print("\nsaindo...")
-        quit()
+        sair_aplicacao()
 
     if escolha_menu == "1":
 
