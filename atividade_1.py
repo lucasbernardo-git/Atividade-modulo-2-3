@@ -14,17 +14,23 @@ headers={
 "X-Api-key": api_key
 }
 
+#Funções
+def marcacao_menu():
+    """
+
+    """
+    print("===========================")
+
 #Listas com os históricos de temas e numeros de notícias pesquisados.
 historico_temas = []
 historico_numero_noticias = []
 
 while True:
-    print("===========================")
+    marcacao_menu()
     print("MENU NEWS API")
     print('\n- Digite "0" para sair')
     print('- Digite "1" para iniciar busca')
-    print("===========================")
-
+    marcacao_menu()
     escolha_menu = input("#>")
 
     if escolha_menu == "0":
