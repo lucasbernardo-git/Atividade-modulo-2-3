@@ -21,12 +21,19 @@ def marcacao_menu():
     """
     print("===========================")
 
+def limpar_terminal():
+    """
+
+    """
+    os.system("cls")
+
 #Listas com os históricos de temas e numeros de notícias pesquisados.
 historico_temas = []
 historico_numero_noticias = []
 
 #Loop principal da aplicação
 while True:
+    limpar_terminal()
     marcacao_menu()
     print("MENU NEWS API")
     print('\n- Digite "0" para sair')
@@ -44,7 +51,7 @@ while True:
         print("\n")
         print(f"Numero de notícias chamadas: {sum(historico_numero_noticias)}")
 
-        print("saindo...")
+        print("\nsaindo...")
         quit()
 
     if escolha_menu == "1":
@@ -87,6 +94,8 @@ while True:
             print(f'Título da noícia: {artigo["title"]}')
             print(f'Fonte de notícia: {artigo["url"]}')
             print(f'Autor da noícia: {artigo["author"]}')
+        
+        input("#>")
 
         
 
