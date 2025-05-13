@@ -25,6 +25,7 @@ def marcacao_menu():
 historico_temas = []
 historico_numero_noticias = []
 
+#Loop principal da aplicação
 while True:
     marcacao_menu()
     print("MENU NEWS API")
@@ -49,15 +50,19 @@ while True:
     if escolha_menu == "1":
 
         escolha_tema = input("Digite qual o tema das notícias que você deseja: ")
-        numero_noticias = int(input("Digite o número de notícias que você deseja receber(Até 10 notícias): "))
 
-        if numero_noticias >= 1 and numero_noticias <= 10:
-            params = {
-                "q" : escolha_tema,
-                "language" : "pt"}
-        else:
-            print("Numero de notícias incorreto, tente novamente!")
-            continue
+        #Loop de verificação do numero de notícias
+        while True:
+            numero_noticias = int(input("\nDigite o número de notícias que você deseja receber(Até 10 notícias): "))
+
+            if numero_noticias >= 1 and numero_noticias <= 10:
+                params = {
+                    "q" : escolha_tema,
+                    "language" : "pt"}
+                break
+            else:
+                print("\nNumero de notícias incorreto, tente novamente!")
+                continue
 
         historico_temas.append(escolha_tema)
         historico_numero_noticias.append(numero_noticias)
