@@ -14,11 +14,11 @@ headers={
 "X-Api-key": api_key
 }
 
+#Listas com os históricos de temas e numeros de notícias pesquisados.
 historico_temas = []
 historico_numero_noticias = []
 
 while True:
-
     print("===========================")
     print("MENU NEWS API")
     print('\n- Digite "0" para sair')
