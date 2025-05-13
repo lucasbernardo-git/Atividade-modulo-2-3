@@ -53,7 +53,11 @@ while True:
 
         #Loop de verificação do numero de notícias
         while True:
-            numero_noticias = int(input("\nDigite o número de notícias que você deseja receber(Até 10 notícias): "))
+            try:
+                numero_noticias = int(input("\nDigite o número de notícias que você deseja receber(Até 10 notícias): "))
+            except ValueError:
+                print("\nDigite apenas numero!")
+                continue
 
             if numero_noticias >= 1 and numero_noticias <= 10:
                 params = {
