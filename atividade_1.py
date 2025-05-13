@@ -17,19 +17,19 @@ headers={
 #Funções
 def marcacao_menu():
     """
-
+    Exibe uma linha visual de separação no terminal para melhorar a leitura do menu.
     """
     print("===========================")
 
 def limpar_terminal():
     """
-
+    Limpa o terminal usando o comando apropriado para o sistema operacional(Windows).
     """
     os.system("cls")
 
 def menu():
     """
-
+    Exibe o menu principal da aplicação com as opções disponíveis para o usuário.
     """
     limpar_terminal()
     marcacao_menu()
@@ -40,7 +40,7 @@ def menu():
 
 def sair_aplicacao():
     """
-
+    Finaliza a aplicação exibindo o histórico de temas pesquisados e o número total de notícias chamadas.
     """
     print("\n")
     print("Temas que foram escolhidos:")
@@ -57,7 +57,11 @@ def sair_aplicacao():
 def exibir_noticias():
     global numero_noticias
     """
-
+    Exibe as notícias obtidas da API, respeitando a quantidade definida em "numero_noticias".
+    Cada notícia mostra o título, a URL da fonte e o autor.
+    
+    Requer:
+        resposta_json (dict): JSON de resposta da API com a chave "articles".
     """
     for artigo in resposta_json["articles"][:numero_noticias]:
             print("\n")
@@ -67,7 +71,11 @@ def exibir_noticias():
     
 def inputs_noticia():
     """
-
+    Solicita ao usuário o tema da pesquisa e a quantidade de notícias desejadas (1 a 10).
+    Atualiza os parâmetros da requisição e registra os históricos de temas e quantidades.
+    
+    Try/Except:
+        ValueError: Se o valor informado para quantidade não for um número válido.
     """
     global params, numero_noticias
 
@@ -94,6 +102,7 @@ def inputs_noticia():
             continue
 
 numero_noticias = 0
+
 #Listas com os históricos de temas e numeros de notícias pesquisados.
 historico_temas = []
 historico_numero_noticias = []
