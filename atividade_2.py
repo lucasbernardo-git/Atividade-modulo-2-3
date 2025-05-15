@@ -15,6 +15,9 @@ def limpar_terminal():
     os.system("cls")
 
 def mostrar_menu_login():
+    """
+    Exibe o menu principal de login, com as opções de login, cadastro ou sair.
+    """
     demarcacao_menu()
     print("Bem vindo ao Jsonplaceholder.Net")
     demarcacao_menu()
@@ -24,6 +27,9 @@ def mostrar_menu_login():
     demarcacao_menu()
         
 def efetuar_login():
+    """
+    Solicita email e senha do usuário, valida com os dados cadastrados e acessa o menu principal se for válido.
+    """
     global Menu_aplicação, Menu_login
 
     limpar_terminal()
@@ -45,6 +51,9 @@ def efetuar_login():
         
     limpar_terminal()
 def efetuar_cadastro():
+    """
+    Solicita um novo email e senha e salva no 'banco_usuario' como novo usuário.
+    """
     limpar_terminal()
     demarcacao_menu()
     print("Tela de cadastro")
@@ -61,6 +70,10 @@ def efetuar_cadastro():
     limpar_terminal()
 
 def mostrar_comentarios():
+    """
+    Recupera e exibe os 5 primeiros comentários da API JsonPlaceholder.
+    Atualiza a contagem de comentários visualizados.
+    """
     global qtd_coments_visu
 
     resposta_api = requests.get('https://jsonplaceholder.typicode.com/comments?_limit=5')
@@ -75,6 +88,10 @@ def mostrar_comentarios():
         demarcacao_menu()
 
 def mostrar_posts():
+    """
+    Recupera e exibe os 5 primeiros posts públicos da API JsonPlaceholder.
+    Atualiza a contagem de posts visualizados.
+    """
     global qtd_posts_visu
 
     resposta_api_2 = requests.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
@@ -91,6 +108,9 @@ def mostrar_posts():
         demarcacao_menu()
 
 def mostrar_menu_aplicacao():
+    """
+    Exibe o menu principal após login, com opções para gerenciar e visualizar posts e comentários.
+    """
     demarcacao_menu()
     print('- Digite "0" para sair (Voltar ao menu)')
     print('- Digite "1" para visualizar seus próprios posts')
@@ -101,6 +121,10 @@ def mostrar_menu_aplicacao():
     demarcacao_menu()
 
 def sair_menu_aplicacao():
+    """
+    Exibe um resumo da sessão atual (quantidade de visualizações e criações)
+    e retorna ao menu de login.
+    """
     global Menu_aplicação, Menu_login
 
     limpar_terminal()
@@ -117,6 +141,10 @@ def sair_menu_aplicacao():
     Menu_login = True
 
 def filtro_post():
+    """
+    Solicita o ID de um usuário e exibe até 5 posts feitos por esse usuário na API.
+    Atualiza a contagem de posts visualizados.
+    """
     usuario_escolhido = input("Digite o numero do usuário que você ver:")
 
     post_usuario_escolhido = requests.get(f'https://jsonplaceholder.typicode.com/posts?userId={usuario_escolhido}&_limit=5')
@@ -138,6 +166,10 @@ def filtro_post():
     input("#>")
 
 def criar_post():
+    """
+    Solicita título e conteúdo de um novo post e o adiciona à lista local de posts do usuário.
+    Atualiza a contagem de posts criados.
+    """
     global qtd_posts_criados
 
     novo_post = {
@@ -170,6 +202,9 @@ def criar_post():
     time.sleep(2)
 
 def mostrar_posts_usuario():
+    """
+    Exibe os posts criados localmente pelo usuário durante a sessão atual.
+    """
     if posts_criados_usuario:
         for post in posts_criados_usuario:
             print(f'Título do post: {post["titulo"]}')
@@ -220,7 +255,7 @@ while True:
         demarcacao_menu()
         print("Menu Jsonplaceholder.Net")
         demarcacao_menu()
-        
+
         mostrar_menu_aplicacao()
         
         escolha_menu_programa = input("#>")
