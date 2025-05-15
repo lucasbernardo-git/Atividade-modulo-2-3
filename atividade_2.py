@@ -1,5 +1,6 @@
 import requests
 import os
+import time
 
 def demarcacao_menu():
     '''
@@ -19,6 +20,9 @@ Menu_aplicação = False
 qtd_posts_visu = 0
 qtd_coments_visu = 0
 qtd_posts_criados = 0
+qtd_posts_visu = 0
+qtd_coments_visu = 0
+qtd_posts_criados = 0
 
 banco_usuario = {
     "id" : "1",
@@ -26,12 +30,20 @@ banco_usuario = {
     "senha" : 0,
 }
 
-"""
-Menu_inicial = True
-Menu_cadastro = False
-Menu_login = False
-Menu_funcionamento = True
-"""
+posts_criados_usuario = []
+
+def mostrar_posts():
+    if posts_criados_usuario:
+        for post in posts_criados_usuario:
+            print(f'Título do post: {post["titulo"]}')
+            print(f'\nConteúdo do post: \n{post["conteudo"]}')
+            demarcacao_menu()
+        input("#>")
+    else:
+        print("Você ainda não criou nenhum post!")
+        demarcacao_menu()
+        input("#>")
+
 
 while True:
     while Menu_login:
@@ -65,6 +77,7 @@ while True:
                     print("Sua senha está incorreta, tente novamente!")
             else:
                 print("Seu email está incorreto, tente novamente!")
+            continue
         if escolha_menu == "2":
             limpar_terminal()
             demarcacao_menu()
@@ -80,8 +93,10 @@ while True:
             print("\nUsuário cadastrado com sucesso!")
             input("\n#>")
             limpar_terminal()
+            continue
 
     while Menu_aplicação:
+        
         limpar_terminal()
         demarcacao_menu()
         print("Menu Jsonplaceholder.Net")
@@ -90,6 +105,7 @@ while True:
         
         resposta_api = requests.get('https://jsonplaceholder.typicode.com/comments?_limit=5')
         comentarios = resposta_api.json()
+        qtd_coments_visu += len(comentarios) 
 
         for comentario in comentarios:
             print("\n")
@@ -100,6 +116,7 @@ while True:
 
         resposta_api_2 = requests.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
         posts = resposta_api_2.json()
+        qtd_posts_visu += len(posts)
         
         print("\n* POSTS *")
         
@@ -109,7 +126,7 @@ while True:
             print("Título do post: ", post["title"])
             print(f'\nConteúdo do post: \n{post["body"]}' )
             demarcacao_menu()
-
+        
         demarcacao_menu()
         print('- Digite "0" para sair (Voltar ao menu)')
         print('- Digite "1" para visualizar seus próprios posts')
@@ -120,45 +137,81 @@ while True:
 
         if escolha_menu_programa == "0":
             limpar_terminal()
+            demarcacao_menu()
+            print("Resumo da sessão:")
+            demarcacao_menu()
+            print(f"- Comentários visualizados: {qtd_coments_visu}")
+            print(f"- Posts visualizados: {qtd_posts_visu}")
+            print(f"- Posts criados: {qtd_posts_criados}")
+            demarcacao_menu()
+            input("Pressione Enter para sair do menu...\n#>")
+            limpar_terminal()
             Menu_aplicação = False
             Menu_login = True
 
         if escolha_menu_programa == "1":
-            
-            post_usuario = requests.get(f'https://jsonplaceholder.typicode.com/posts/{banco_usuario["id"]}')
-            posts_usuario_resposta = post_usuario.json()
-
             limpar_terminal()
-
             print("* MEUS POSTS *\n")
             demarcacao_menu()
-            try:
-                for post in posts_usuario_resposta:
-                    print("Título do post: ", post["title"])
-                    print(f'\nConteúdo do post: \n{post["body"]}' )
-                
-            except:
-                    print("Nenhum post encontrado")
-            demarcacao_menu()
-        input("#>")
+            mostrar_posts()
+        
 
         if escolha_menu_programa == "2":
             
             usuario_escolhido = input("Digite o numero do usuário que você ver:")
 
-            post_usuario_escolhido = requests.get(f'https://jsonplaceholder.typicode.com/posts/{usuario_escolhido}?_limit=5')
+            post_usuario_escolhido = requests.get(f'https://jsonplaceholder.typicode.com/posts?userId={usuario_escolhido}&_limit=5')
             usuario_escolhido_resposta = post_usuario_escolhido.json()
 
             limpar_terminal()
 
-            print(f"* POSTS DO USUARIO {usuario_escolhido} *\n")
+            print(f"\n* POSTS DO USUARIO {usuario_escolhido} *\n")
             demarcacao_menu()
             try:
                 for post in usuario_escolhido_resposta:
                     print("Título do post: ", post["title"])
                     print(f'\nConteúdo do post: \n{post["body"]}' )
+                    qtd_posts_visu += 1
                 
             except:
                     print("Nenhum post encontrado")
             demarcacao_menu()
-        input("#>")
+            input("#>")
+
+
+        if escolha_menu_programa == "3":
+                
+            url = "https://jsonplaceholder.typicode.com/posts"
+
+            novo_post = {
+            "titulo": "",
+            "conteudo": "",
+            "userId": int(banco_usuario["id"])
+            }
+
+            limpar_terminal()
+            demarcacao_menu()
+            print(" * Criação de um novo post *")
+            demarcacao_menu()
+            titulo_post = input("Digite um título para o seu post:")
+            conteudo_post = input("Digite um conteúdo para o seu post:")
+
+            novo_post["titulo"] = titulo_post
+            novo_post["conteudo"] = conteudo_post
+
+            # Salva localmente
+            posts_criados_usuario.append(novo_post)
+            qtd_posts_criados += 1 
+
+            res = requests.post(url, json=novo_post)
+
+            print(".")
+            time.sleep(1)
+            print("..")
+            time.sleep(1)
+            print("...")
+            time.sleep(1)
+            print("\nPost efetuado com sucesso!!")
+            time.sleep(2)
+
+
